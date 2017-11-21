@@ -8,7 +8,7 @@ public class ExperimentRunner {
 	private static final int NUM_DATA_STRUCTURES_TO_DEDUCE = 5;
 
 	public static void main (String[] args) {
-		final String cs210XTeamIDForProject4 = "YOUR_LOGIN_ID"; // TODO CHANGE THIS TO THE TEAM ID YOU USE TO SUBMIT YOUR PROJECT3 ON INSTRUCT-ASSIST.
+		final String cs210XTeamIDForProject4 = "jemushatt"; // TODO CHANGE THIS TO THE TEAM ID YOU USE TO SUBMIT YOUR PROJECT3 ON INSTRUCT-ASSIST.
 
 		// Fetch the collections whose type you must deduce.
 		// Note -- you are free to change the type parameter from Integer to whatever you want. In this
@@ -23,7 +23,7 @@ public class ExperimentRunner {
 
 		// Write your code here...
 		final Random random = new Random();  // instantiate a random number generator
-		final int N = 100000;
+		final int N = 10000000;
 		for (int i = 0; i < N; i++) {  // populate the mystery data structure with 100 numbers
 			mysteryDataStructures[0].add(new Integer(i));
 		}
@@ -37,7 +37,8 @@ public class ExperimentRunner {
 		final boolean result = mysteryDataStructures[0].contains(elementToFind);
 		final long end = CPUClock.getNumTicks();
 		final long elapsed = (end - start);
-		testForHashMap(mysteryDataStructures);
+		testForHashMapBest(mysteryDataStructures);
+		testForHashMapWorst(mysteryDataStructures);
 
 		// Write a table of numbers (for different N -- here, we are just showing one value for simplicity) showing
 		// the relationship between N and the time-cost associated with searching (with the contains method) through
@@ -45,34 +46,103 @@ public class ExperimentRunner {
 		System.out.println("N\tT (contains(o))");
 		System.out.println(N + "\t" + elapsed);
 	}
-	public static boolean[] testForHashMap(Collection210X<Integer>[] mds)
+	public static boolean[] testStructures(Collection210X<Integer>[] mds)
+	{
+		return null;
+	}
+	public static boolean[] testForHashMapBest(Collection210X<Integer>[] mds)
 	{
 		final Random random = new Random();
 		final int elementToFind = random.nextInt(mds.length);
-		final long[] dataTimes = new long[mds.length];
+		final long[] data_Time_Contains = new long[mds.length];
+		final long[] data_Time_Add = new long[mds.length];
+		final long[] data_Time_Remove = new long[mds.length];
 		boolean[] hashStruct = new boolean[mds.length];
+		
 		for(int i = 0; i<mds.length;i++)
 		{
 			final long start = CPUClock.getNumTicks();
 			mds[0].contains(elementToFind);
 			final long end = CPUClock.getNumTicks();
-			dataTimes[i] = end - start;			
+			data_Time_Contains[i] = end - start;			
 		}
+		
+		for(int i =0; i < data_Time_Add.length;i++)
+		{
+			final long start = CPUClock.getNumTicks();
+			mds[0].add(1);
+			final long end = CPUClock.getNumTicks();
+			data_Time_Add[i] = end - start;
+		}
+		for(int i =0; i < data_Time_Remove.length;i++)
+		{
+			final long start = CPUClock.getNumTicks();
+			mds[0].remove(elementToFind);
+			final long end = CPUClock.getNumTicks();
+			data_Time_Add[i] = end - start;
+		}
+		
 		for(int i =0; i<hashStruct.length; i++)
 		{
-			if(dataTimes[i] < mds[i].size())
+			if(data_Time_Contains[i] < 1 && data_Time_Add[i] < 1 
+					&& data_Time_Remove[i] < 1)
 			{
 				hashStruct[i]=true;
-			}
-		}
-		for(int i =0; i <hashStruct.length;i++)
-		{
-			if(hashStruct[i])
-			{
-				System.out.println(i +": Potential HashMap");
-			}
+				System.out.println("Structure " + i + " is a potential HashMap on avg" );
+			}	
+			
 		}
 		return hashStruct;
 		
+	
+	}
+	public static boolean[] testForHashMapWorst(Collection210X<Integer>[] mds)
+	{
+		final Random random = new Random();
+		final int elementToFind = random.nextInt(mds.length);
+		final long[] data_Time_Contains = new long[mds.length];
+		final long[] data_Time_Add = new long[mds.length];
+		final long[] data_Time_Remove = new long[mds.length];
+		boolean[] hashStruct = new boolean[mds.length];
+		
+		for(int i = 0; i<mds.length;i++)
+		{
+			final long start = CPUClock.getNumTicks();
+			mds[0].contains(10000001);
+			final long end = CPUClock.getNumTicks();
+			data_Time_Contains[i] = end - start;			
+		}
+		
+		for(int i =0; i < data_Time_Add.length;i++)
+		{
+			final long start = CPUClock.getNumTicks();
+			mds[0].add(10000001);
+			final long end = CPUClock.getNumTicks();
+			data_Time_Add[i] = end - start;
+		}
+		for(int i =0; i < data_Time_Remove.length;i++)
+		{
+			final long start = CPUClock.getNumTicks();
+			mds[0].remove(10000001);
+			final long end = CPUClock.getNumTicks();
+			data_Time_Add[i] = end - start;
+		}
+		
+		for(int i =0; i<hashStruct.length; i++)
+		{
+			if(data_Time_Contains[i] < mds[i].size() && data_Time_Add[i] < mds[i].size() 
+					&& data_Time_Remove[i] < mds[i].size())
+			{
+				hashStruct[i]=true;
+				System.out.println("Structure " + i + " is a potential HashMap worstcase"
+						+ "\nCycle time Add 	 = " + data_Time_Add[i]
+						+ "\nCycle time Contains = " + data_Time_Contains[i]
+						+ "\nCycle time Remove   = " + data_Time_Remove[i]);
+			}	
+			
+		}
+		return hashStruct;
+		
+	
 	}
 }
