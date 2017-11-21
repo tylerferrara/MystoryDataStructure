@@ -23,24 +23,56 @@ public class ExperimentRunner {
 
 		// Write your code here...
 		final Random random = new Random();  // instantiate a random number generator
-		final int N = 100;
+		final int N = 100000;
 		for (int i = 0; i < N; i++) {  // populate the mystery data structure with 100 numbers
 			mysteryDataStructures[0].add(new Integer(i));
 		}
-		final int elementToFind = random.nextInt(N);
+		final int elementToFind = random.nextInt(N); 
 
 		// This is an example of measuring an operation's time cost *without* averaging -- the times will vary wildly!		
 		// You really should average...
+		
 		final long start = CPUClock.getNumTicks();
 		// Time how long it takes to find a single, randomly chosen item stored in the mystery data structure
 		final boolean result = mysteryDataStructures[0].contains(elementToFind);
 		final long end = CPUClock.getNumTicks();
-		final long elapsed = end - start;
+		final long elapsed = (end - start);
+		testForHashMap(mysteryDataStructures);
 
 		// Write a table of numbers (for different N -- here, we are just showing one value for simplicity) showing
 		// the relationship between N and the time-cost associated with searching (with the contains method) through
 		// a collection of N data.
 		System.out.println("N\tT (contains(o))");
 		System.out.println(N + "\t" + elapsed);
+	}
+	public static boolean[] testForHashMap(Collection210X<Integer>[] mds)
+	{
+		final Random random = new Random();
+		final int elementToFind = random.nextInt(mds.length);
+		final long[] dataTimes = new long[mds.length];
+		boolean[] hashStruct = new boolean[mds.length];
+		for(int i = 0; i<mds.length;i++)
+		{
+			final long start = CPUClock.getNumTicks();
+			mds[0].contains(elementToFind);
+			final long end = CPUClock.getNumTicks();
+			dataTimes[i] = end - start;			
+		}
+		for(int i =0; i<hashStruct.length; i++)
+		{
+			if(dataTimes[i] < mds[i].size())
+			{
+				hashStruct[i]=true;
+			}
+		}
+		for(int i =0; i <hashStruct.length;i++)
+		{
+			if(hashStruct[i])
+			{
+				System.out.println(i +": Potential HashMap");
+			}
+		}
+		return hashStruct;
+		
 	}
 }
