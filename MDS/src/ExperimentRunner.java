@@ -6,9 +6,7 @@ import com.cs210x.*;
   */
 public class ExperimentRunner {
 	private static final int NUM_DATA_STRUCTURES_TO_DEDUCE = 5;
-	final long[] data_Time_Contains;
-	final long[] data_Time_Add;
-	final long[] data_Time_Remove;
+	
 	public static void main (String[] args) {
 		final String cs210XTeamIDForProject4 = "jemushatt"; // TODO CHANGE THIS TO THE TEAM ID YOU USE TO SUBMIT YOUR PROJECT3 ON INSTRUCT-ASSIST.
 
@@ -39,14 +37,16 @@ public class ExperimentRunner {
 		final boolean result = mysteryDataStructures[0].contains(elementToFind);
 		final long end = CPUClock.getNumTicks();
 		final long elapsed = (end - start);
-		testForHashMapBest(mysteryDataStructures);
-		testForHashMapWorst(mysteryDataStructures);
+		StructureTester test = new StructureTester(mysteryDataStructures, 1000);
+		System.out.println(test.averageAdd());
+		//testForHashMapBest(mysteryDataStructures);
+		//testForHashMapWorst(mysteryDataStructures);
 
 		// Write a table of numbers (for different N -- here, we are just showing one value for simplicity) showing
 		// the relationship between N and the time-cost associated with searching (with the contains method) through
 		// a collection of N data.
-		System.out.println("N\tT (contains(o))");
-		System.out.println(N + "\t" + elapsed);
+		//System.out.println("N\tT (contains(o))");
+		//System.out.println(N + "\t" + elapsed);
 	}
 	public static boolean[] testStructures(Collection210X<Integer>[] mds)
 	{
@@ -61,9 +61,9 @@ public class ExperimentRunner {
 	{
 		final Random random = new Random();
 		final int elementToFind = random.nextInt(mds.length);
-		final long[] data_Time_Contains = new long[mds.length];
-		final long[] data_Time_Add = new long[mds.length];
-		final long[] data_Time_Remove = new long[mds.length];
+		data_Time_Contains = new long[mds.length];
+		data_Time_Add = new long[mds.length];
+		data_Time_Remove = new long[mds.length];
 		boolean[] hashStruct = new boolean[mds.length];
 		
 		for(int i = 0; i<mds.length;i++)
