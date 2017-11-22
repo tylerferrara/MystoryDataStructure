@@ -7,64 +7,118 @@ public class StructureTester {
 	private final long[] data_Time_Contains;
 	private final long[] data_Time_Add;
 	private final long[] data_Time_Remove;
-	private Collection210X<Integer>[] mds;
+	private final long data_Time_Contains_Average;
+	private final long data_Time_Add_Average;
+	private final long data_Time_Remove_Average;
+	private Collection210X<Integer> mds;
 	private final int testSize;
 	private Random random = new Random();
-	public StructureTester(Collection210X<Integer>[] mds, int testSize)
+	/**
+	 * Build tester
+	 * @param mds list of data structures
+	 * @param testSize size of data to test on
+	 */
+	public StructureTester(Collection210X<Integer> mds, int testSize)
 	{
 		this.mds = mds;
 		this.testSize = testSize;
-		data_Time_Contains = new long[this.testSize];
-		data_Time_Add = new long[this.testSize];
-		data_Time_Remove = new long[this.testSize];	
+		
+		this.data_Time_Contains = new long[this.testSize];
+		this.data_Time_Add = new long[this.testSize];
+		this.data_Time_Remove = new long[this.testSize];	
+		
+		
 		this.init();
+		this.testHashAverage();
 	}
-	
+	/**
+	 * Initialize the data with random numbers
+	 */
 	private void init()
 	{
-		for(int i =0; i< this.testSize;i++)
-		{
-			mds[i].add(random.nextInt(testSize));
-		}
+		
+		for(int j = 0; j<this.testSize;j++)
+			{
+				mds.add(random.nextInt(testSize));
+			}
+				
 	}
-	public void testHashAverage()
+			
+	/** 
+	 * Test the average cpu cycle on contain add and remove
+	 */
+	private void testAdd()
+	{
+		for(int j = 0; j<this.testSize;j++)
+		{
+			long start = CPUClock.getNumTicks();
+			this.mds.add(random.nextInt(testSize));
+			long end = CPUClock.getNumTicks();
+			data_Time_Add[j] = end - start;
+		}
+		init();
+	}
+	private void testContains()
+	{
+		for(int j = 0; j<this.testSize;j++)
+		{
+			long start = CPUClock.getNumTicks();
+			this.mds.contains(random.nextInt(testSize));
+			long end = CPUClock.getNumTicks();
+			data_Time_Contains[j] = end - start;
+		}
+		init();
+	}
+	private void testRemove()
+	{
+		for(int j = 0; j<this.testSize;j++)
+		{
+			long start = CPUClock.getNumTicks();
+			this.mds.remove(random.nextInt(testSize));
+			long end = CPUClock.getNumTicks();
+			data_Time_Remove[j] = end - start;
+		}
+		init();
+	}
+	private void testHashAverage()
 	{
 		//test add method time
-		for(int i=0; i<this.testSize;i++)
-		{
-			long start = CPUClock.getNumTicks();
-			this.mds[i].add(random.nextInt(testSize));
-			long end = CPUClock.getNumTicks();
-			data_Time_Add[i] = start - end;
-			
-		}
+		testAdd();
 		//test contains method
-		for(int i=0; i<this.testSize;i++)
-		{
-			long start = CPUClock.getNumTicks();
-			this.mds[i].add(random.nextInt(testSize));
-			long end = CPUClock.getNumTicks();
-			data_Time_Contains[i] = start - end;
-			
-		}
+		testContains();
 		//test remove method
-		for(int i=0; i<this.testSize;i++)
-		{
-			long start = CPUClock.getNumTicks();
-			this.mds[i].add(random.nextInt(testSize));
-			long end = CPUClock.getNumTicks();
-			data_Time_Remove[i] = start - end;
+		testRemove();
 			
 		}
-	}
+	
 	
 	public long averageAdd()
 	{
-		this.testHashAverage();
 		long result=0;
 		for(int i=0; i<this.testSize;i++)
 		{
 			result+= this.data_Time_Add[i];
+		}
+		//System.out.println(result/this.testSize);
+		return result/this.testSize;
+		
+	}
+	public long averageContains()
+	{
+		long result=0;
+		for(int i=0; i<this.testSize;i++)
+		{
+			result+= this.data_Time_Contains[i];
+		}
+		return result/this.testSize;
+		
+	}
+	public long averageRemove()
+	{
+		long result=0;
+		for(int i=0; i<this.testSize;i++)
+		{
+			result+= this.data_Time_Remove[i];
 		}
 		return result/this.testSize;
 		

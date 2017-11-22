@@ -37,8 +37,10 @@ public class ExperimentRunner {
 		final boolean result = mysteryDataStructures[0].contains(elementToFind);
 		final long end = CPUClock.getNumTicks();
 		final long elapsed = (end - start);
-		StructureTester test = new StructureTester(mysteryDataStructures, 1000);
-		System.out.println(test.averageAdd());
+		StructureTester test1 = new StructureTester(mysteryDataStructures[0], 10000);
+		System.out.println("Add cycles " + test1.averageAdd());
+		System.out.println("Contains cycles " +test1.averageContains());
+		System.out.println("Remove cycles " + test1.averageRemove());
 		//testForHashMapBest(mysteryDataStructures);
 		//testForHashMapWorst(mysteryDataStructures);
 
@@ -48,16 +50,8 @@ public class ExperimentRunner {
 		//System.out.println("N\tT (contains(o))");
 		//System.out.println(N + "\t" + elapsed);
 	}
-	public static boolean[] testStructures(Collection210X<Integer>[] mds)
-	{
-		return null;
-	}
-	public static long[] testAdd(Collection210X<Integer>[] mds)
-	{
-		
-		
-	}
-	public static boolean[] testForHashMapBest(Collection210X<Integer>[] mds)
+	
+	/*public static boolean[] testForHashMapBest(Collection210X<Integer>[] mds)
 	{
 		final Random random = new Random();
 		final int elementToFind = random.nextInt(mds.length);
@@ -151,5 +145,5 @@ public class ExperimentRunner {
 		return hashStruct;
 		
 	
-	}
+	}*/
 }
