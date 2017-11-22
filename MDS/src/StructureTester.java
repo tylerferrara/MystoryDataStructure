@@ -7,14 +7,16 @@ public class StructureTester {
 	private final long[] data_Time_Contains;
 	private final long[] data_Time_Add;
 	private final long[] data_Time_Remove;
-	private final long data_Time_Contains_Average;
-	private final long data_Time_Add_Average;
-	private final long data_Time_Remove_Average;
+	private  long data_Time_Contains_Average;
+	private  long data_Time_Add_Average;
+	private  long data_Time_Remove_Average;
 	private Collection210X<Integer> mds;
 	private final int testSize;
 	private Random random = new Random();
 	/**
 	 * Build tester
+	 * Create a test for a single data structure
+	 * Can run add, contains, and remove on the structure to determine time complexity
 	 * @param mds list of data structures
 	 * @param testSize size of data to test on
 	 */
@@ -55,8 +57,9 @@ public class StructureTester {
 			this.mds.add(random.nextInt(testSize));
 			long end = CPUClock.getNumTicks();
 			data_Time_Add[j] = end - start;
+			init();
 		}
-		init();
+		
 	}
 	private void testContains()
 	{
@@ -77,8 +80,9 @@ public class StructureTester {
 			this.mds.remove(random.nextInt(testSize));
 			long end = CPUClock.getNumTicks();
 			data_Time_Remove[j] = end - start;
+			init();
 		}
-		init();
+		
 	}
 	private void testHashAverage()
 	{
@@ -91,7 +95,8 @@ public class StructureTester {
 			
 		}
 	
-	
+	//------TODO------
+	//AVERAGE AFTER MULTIPLE TIMES (e.g. 5 times)
 	public long averageAdd()
 	{
 		long result=0;
@@ -103,6 +108,8 @@ public class StructureTester {
 		return result/this.testSize;
 		
 	}
+	//------TODO------
+		//AVERAGE AFTER MULTIPLE TIMES (e.g. 5 times)
 	public long averageContains()
 	{
 		long result=0;
@@ -113,6 +120,8 @@ public class StructureTester {
 		return result/this.testSize;
 		
 	}
+	//------TODO------
+		//AVERAGE AFTER MULTIPLE TIMES (e.g. 5 times)
 	public long averageRemove()
 	{
 		long result=0;

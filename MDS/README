@@ -1,0 +1,7 @@
+README- MysteryDataStructures: John Mushatt, Tyler Ferrara, Bradley Caccivio
+
+------------TODO-------------
+1. Make sure tests are averaged properly (e.g. add times of 5 different test adds, then average them)
+2. Refactor and clean up code
+3. Determine which structure is which
+4. Create graphs my writing data to a csv file (or normal text file)
