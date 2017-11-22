@@ -6,7 +6,9 @@ import com.cs210x.*;
   */
 public class ExperimentRunner {
 	private static final int NUM_DATA_STRUCTURES_TO_DEDUCE = 5;
-
+	final long[] data_Time_Contains;
+	final long[] data_Time_Add;
+	final long[] data_Time_Remove;
 	public static void main (String[] args) {
 		final String cs210XTeamIDForProject4 = "jemushatt"; // TODO CHANGE THIS TO THE TEAM ID YOU USE TO SUBMIT YOUR PROJECT3 ON INSTRUCT-ASSIST.
 
@@ -23,7 +25,7 @@ public class ExperimentRunner {
 
 		// Write your code here...
 		final Random random = new Random();  // instantiate a random number generator
-		final int N = 10000000;
+		final int N = 10000;
 		for (int i = 0; i < N; i++) {  // populate the mystery data structure with 100 numbers
 			mysteryDataStructures[0].add(new Integer(i));
 		}
@@ -49,6 +51,11 @@ public class ExperimentRunner {
 	public static boolean[] testStructures(Collection210X<Integer>[] mds)
 	{
 		return null;
+	}
+	public static long[] testAdd(Collection210X<Integer>[] mds)
+	{
+		
+		
 	}
 	public static boolean[] testForHashMapBest(Collection210X<Integer>[] mds)
 	{
@@ -108,7 +115,7 @@ public class ExperimentRunner {
 		for(int i = 0; i<mds.length;i++)
 		{
 			final long start = CPUClock.getNumTicks();
-			mds[0].contains(10000001);
+			mds[i].contains(10001);
 			final long end = CPUClock.getNumTicks();
 			data_Time_Contains[i] = end - start;			
 		}
@@ -116,14 +123,14 @@ public class ExperimentRunner {
 		for(int i =0; i < data_Time_Add.length;i++)
 		{
 			final long start = CPUClock.getNumTicks();
-			mds[0].add(10000001);
+			mds[i].add(10001);
 			final long end = CPUClock.getNumTicks();
 			data_Time_Add[i] = end - start;
 		}
 		for(int i =0; i < data_Time_Remove.length;i++)
 		{
 			final long start = CPUClock.getNumTicks();
-			mds[0].remove(10000001);
+			mds[i].remove(10000);
 			final long end = CPUClock.getNumTicks();
 			data_Time_Add[i] = end - start;
 		}
