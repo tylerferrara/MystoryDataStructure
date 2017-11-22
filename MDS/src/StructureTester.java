@@ -31,7 +31,7 @@ public class StructureTester {
 		
 		
 		this.init();
-		this.testHashAverage();
+		this.testStrctureTimes();
 	}
 	/**
 	 * Initialize the data with random numbers
@@ -57,8 +57,9 @@ public class StructureTester {
 			this.mds.add(random.nextInt(testSize));
 			long end = CPUClock.getNumTicks();
 			data_Time_Add[j] = end - start;
-			init();
+			
 		}
+		init();
 		
 	}
 	private void testContains()
@@ -84,14 +85,14 @@ public class StructureTester {
 		}
 		
 	}
-	private void testHashAverage()
+	private void testStrctureTimes()
 	{
 		//test add method time
-		testAdd();
+		averageAdd();
 		//test contains method
-		testContains();
+		//testContains();
 		//test remove method
-		testRemove();
+		//testRemove();
 			
 		}
 	
@@ -100,12 +101,15 @@ public class StructureTester {
 	public long averageAdd()
 	{
 		long result=0;
-		for(int i=0; i<this.testSize;i++)
+		for(int i=0; i< 5; i++)
 		{
-			result+= this.data_Time_Add[i];
+			for(int j=0; j<this.testSize;j++)
+			{
+				result+= this.data_Time_Add[j];
+			}
+			testAdd();
 		}
-		//System.out.println(result/this.testSize);
-		return result/this.testSize;
+		return result/5;
 		
 	}
 	//------TODO------
@@ -113,23 +117,30 @@ public class StructureTester {
 	public long averageContains()
 	{
 		long result=0;
-		for(int i=0; i<this.testSize;i++)
-		{
-			result+= this.data_Time_Contains[i];
+		for(int i = 0; i<5 ; i++)
+			{
+				for(int j=0; j<this.testSize;j++)
+				{
+					result+= this.data_Time_Contains[j];
+				}
+				testContains();
+			}
+	
+		return result/5;
 		}
-		return result/this.testSize;
-		
-	}
-	//------TODO------
+		//------TODO------
 		//AVERAGE AFTER MULTIPLE TIMES (e.g. 5 times)
 	public long averageRemove()
 	{
 		long result=0;
-		for(int i=0; i<this.testSize;i++)
+		for(int i =0;i<5;i++)
 		{
-			result+= this.data_Time_Remove[i];
+				for(int j=0; j<this.testSize;j++)
+				{
+					result+= this.data_Time_Remove[j];
+				}
 		}
-		return result/this.testSize;
+		return result/5   ;
 		
 	}
 	public long[] testHashWorst()

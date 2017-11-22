@@ -39,8 +39,8 @@ public class ExperimentRunner {
 		final long elapsed = (end - start);
 		StructureTester test1 = new StructureTester(mysteryDataStructures[0], 10000);
 		System.out.println("Add cycles " + test1.averageAdd());
-		System.out.println("Contains cycles " +test1.averageContains());
-		System.out.println("Remove cycles " + test1.averageRemove());
+		//System.out.println("Contains cycles " +test1.averageContains());
+		//System.out.println("Remove cycles " + test1.averageRemove());
 		//testForHashMapBest(mysteryDataStructures);
 		//testForHashMapWorst(mysteryDataStructures);
 
