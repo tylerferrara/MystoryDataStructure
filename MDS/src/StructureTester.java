@@ -11,6 +11,7 @@ public class StructureTester {
 	private  long data_Time_Add_Average;
 	private  long data_Time_Remove_Average;
 	private Collection210X<Integer> mds;
+	private Collection210X<Integer> mds_backup;
 	private final int testSize;
 	private Random random = new Random();
 	/**
@@ -31,9 +32,7 @@ public class StructureTester {
 		
 		
 		this.init();
-		this.averageAdd();
-		this.averageContains();
-		this.averageRemove();
+		mds_backup = mds;
 	}
 	/**
 	 * Initialize the data with random numbers
@@ -47,15 +46,6 @@ public class StructureTester {
 			}
 				
 	}
-			
-	/** 
-	 * Test the average cpu cycle on contain add and remove
-	 */
-	
-	private void testAddEmpty()
-	{
-		this.mds.clear();
-	}
 	private void testAdd()
 	{
 		for(int j = 0; j<this.testSize;j++)
@@ -64,7 +54,7 @@ public class StructureTester {
 			this.mds.add(random.nextInt(testSize));
 			long end = CPUClock.getNumTicks();
 			data_Time_Add[j] = end - start;
-			init();
+			mds = mds_backup;
 		}		
 	}
 	private void testContains()
@@ -75,6 +65,7 @@ public class StructureTester {
 			this.mds.contains(random.nextInt(testSize));
 			long end = CPUClock.getNumTicks();
 			data_Time_Contains[j] = end - start;
+			mds = mds_backup;
 		}
 	}
 	private void testRemove()
@@ -85,7 +76,7 @@ public class StructureTester {
 			this.mds.remove(random.nextInt(testSize));
 			long end = CPUClock.getNumTicks();
 			data_Time_Remove[j] = end - start;
-			init();
+			mds = mds_backup;
 		}
 		
 	}
