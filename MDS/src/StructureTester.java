@@ -106,57 +106,38 @@ public class StructureTester {
 	public long averageAdd()
 	{
 		long average=0;
-		for(int i=0; i< 5; i++)
+		testAdd();
+		for(int j=0; j<this.testSize;j++)
 		{
-			testAdd();
-			for(int j=0; j<this.testSize;j++)
-			{
-				average+= this.data_Time_Add[j];	
-			}
-			//System.out.println(average/(i+1));
+			average+= this.data_Time_Add[j];	
 		}
-		return average/5;
+		
+		return average/this.testSize;
 	}
 	//------TODO------
 		//AVERAGE AFTER MULTIPLE TIMES (e.g. 5 times)
 	public long averageContains()
 	{
 		long average=0;
-		for(int i = 0; i<5 ; i++)
-			{
-				testContains();
-				for(int j=0; j<this.testSize;j++)
-				{
-					average+= this.data_Time_Contains[j];
-				}				
-			}
-		//System.out.println("FINAL AVERAGE " + average);
-		return average/5;
+		testContains();
+		for(int j=0; j<this.testSize;j++)
+		{
+			average+= this.data_Time_Contains[j];
 		}
+		return average/this.testSize;
+	}
 		//------TODO------
 		//AVERAGE AFTER MULTIPLE TIMES (e.g. 5 times)
 	public long averageRemove()
 	{
 		long average=0;
-		for(int i =0;i<5;i++)
+		testRemove();
+		for(int j=0; j<this.testSize;j++)
 		{
-				testRemove();
-				for(int j=0; j<this.testSize;j++)
-				{
+			average+= this.data_Time_Remove[j];
 					
-					average+= this.data_Time_Remove[j];
-					
-				}
 		}
-
-		return average/5   ;
+		return average/this.testSize;
 		
-	}
-	public long[] testHashWorst()
-	{
-		
-		
-		
-		return null;
 	}
 }
