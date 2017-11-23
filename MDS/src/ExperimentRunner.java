@@ -22,6 +22,7 @@ public class ExperimentRunner {
 			createFile(i, "contains");
 		}
 
+
 	}
 	
 	private static void createFile(int index, String command) throws FileNotFoundException {
@@ -41,7 +42,7 @@ public class ExperimentRunner {
 		}
 		testers = structCollection;
 		
-		PrintWriter pw = new PrintWriter(new File(command + ".csv"));
+		PrintWriter pw = new PrintWriter(new File(command+ index + ".csv"));
         StringBuilder sb = new StringBuilder();
         
         for(int n: Ns) {
