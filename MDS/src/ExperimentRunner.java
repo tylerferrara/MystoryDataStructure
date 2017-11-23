@@ -16,6 +16,16 @@ public class ExperimentRunner {
 	
 	public static void main (String[] args) throws FileNotFoundException {
 		
+		for(int i = 0; i < NUM_DATA_STRUCTURES_TO_DEDUCE; i++) {
+			createFile(i, "add");
+			createFile(i, "remove");
+			createFile(i, "contains");
+		}
+
+	}
+	
+	private static void createFile(int index, String command) throws FileNotFoundException {
+		
 		final String cs210XTeamIDForProject4 = "jemushatt"; // TODO CHANGE THIS TO THE TEAM ID YOU USE TO SUBMIT YOUR PROJECT3 ON INSTRUCT-ASSIST.
 
 		@SuppressWarnings("unchecked")
@@ -23,23 +33,14 @@ public class ExperimentRunner {
 		for (int i = 0; i < NUM_DATA_STRUCTURES_TO_DEDUCE; i++) {
 			mysteryDataStructures[i] = MysteryDataStructure.getMysteryDataStructure(cs210XTeamIDForProject4.hashCode(), i, new Integer(0));
 		}
-		 
 		
 		StructureTester[] structCollection = new StructureTester[Ns.length];
-
+ 
 		for(int i = 0; i < Ns.length; i++) {
-			structCollection[i] = new StructureTester(mysteryDataStructures[4], Ns[i]);
+			structCollection[i] = new StructureTester(mysteryDataStructures[index], Ns[i]);
 		}
-		
 		testers = structCollection;
 		
-		createFile("add");
-		createFile("remove");
-		createFile("contains");
-		
-	}
-	
-	private static void createFile(String command) throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(new File(command + ".csv"));
         StringBuilder sb = new StringBuilder();
         
@@ -64,6 +65,7 @@ public class ExperimentRunner {
         }
         pw.write(sb.toString());
         pw.close();
+        System.out.println("Finished " + command + " for index " + index);
 	}
 	
 	/*public static boolean[] testForHashMapBest(Collection210X<Integer>[] mds)
